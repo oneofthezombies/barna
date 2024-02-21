@@ -1,6 +1,8 @@
 # Barna
 
-It is a scripting language written in Unix shell script and Windows batch script.  
-The name _Barna_ comes from a _barnacle_ that lives on a clam _shell_.
+Barna is a scripting language for the command line that does not require a runtime installation. This is because it uses Unix shell scripts and Windows batch scripts as runtime.  
+The name "Barna" comes from a barnacle that lives on a clam shell.  
 
 ![Mascot](/resource/mascot.webp)
+
+Barna Runtime
