@@ -1,43 +1,44 @@
 @echo off
 setlocal enabledelayedexpansion
 
-echo stack: !stack!
+set "var_stack="
+echo var_stack: !var_stack!
 
 call :fn_push Apple
-echo stack: !stack!
+echo var_stack: !var_stack!
 
 call :fn_push Banana
-echo stack: !stack!
+echo var_stack: !var_stack!
 
 call :fn_push Cherry
-echo stack: !stack!
+echo var_stack: !var_stack!
 
 call :fn_pop
-echo pop_result: !pop_result!
-echo stack: !stack!
+echo var_pop_result: !var_pop_result!
+echo var_stack: !var_stack!
 
 call :fn_pop
-echo pop_result: !pop_result!
-echo stack: !stack!
+echo var_pop_result: !var_pop_result!
+echo var_stack: !var_stack!
 
 goto :eof
 
 
 :fn_push
-set "item=%~1"
-set "stack=!item! !stack!"
+set "var_push_item=%~1"
+set "var_stack=!var_push_item! !var_stack!"
 goto :eof
 
 
 :fn_pop
-if "!stack!"=="" (
-    echo Stack is empty.
+if "!var_stack!"=="" (
+    echo var_stack is empty.
     goto :eof
 )
 
-for /f "tokens=1,* delims= " %%a in ("!stack!") do (
-    set "pop_result=%%a"
-    set "stack=%%b"
+for /f "tokens=1,* delims= " %%a in ("!var_stack!") do (
+    set "var_pop_result=%%a"
+    set "var_stack=%%b"
 )
 
 goto :eof
