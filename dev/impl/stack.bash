@@ -7,6 +7,7 @@
 stack_push() {
     eval "$2=\$((\$$2+1))"
     eval "$1[\$$2]='$3'"
+    return 0
 }
 
 # Arguments
@@ -19,6 +20,7 @@ stack_pop() {
     fi
     eval "$3=\${$1[\$$2]}"
     eval "$2=\$((\$$2-1))"
+    return 0
 }
 
 test() {
