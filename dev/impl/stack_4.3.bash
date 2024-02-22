@@ -5,8 +5,11 @@
 # $2 - stack_size: int reference
 # $3 - item: string value
 stack_push() {
-    eval "$2=\$((\$$2+1))"
-    eval "$1[\$$2]='$3'"
+    local -n stack=$1
+    local -n stack_size=$2
+    ((stack_size+=1))
+    stack[stack_size]=$3
+    return 0
 }
 
 # Arguments
@@ -14,18 +17,21 @@ stack_push() {
 # $2 - stack_size: int reference
 # $3 - item: string reference
 stack_pop() {
-    if [ $(eval echo \$$2) -eq 0 ]; then
+    local -n stack=$1
+    local -n stack_size=$2
+    if [ $stack_size -eq 0 ]; then
         return 1
     fi
-    eval "$3=\${$1[\$$2]}"
-    eval "$2=\$((\$$2-1))"
+    eval $3="${stack[stack_size]}"
+    ((stack_size-=1))
+    return 0
 }
 
 test() {
-    a_my_stack=()
-    i_my_stack_size=0
-    s_my_item=""
-    i_status=0
+    declare -a a_my_stack
+    declare -i i_my_stack_size=0
+    declare s_my_item=""
+    declare -i i_status=0
 
     stack_push a_my_stack i_my_stack_size hello
     i_status=$?
