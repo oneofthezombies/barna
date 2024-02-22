@@ -22,14 +22,34 @@ set /a barna_var__runtime_heap_size=0
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-call :barna_fn__runtime__stack_push Apple
-call :barna_fn__runtime__stack_push Banana
-call :barna_fn__runtime__stack_pop my_result my_error
-call :barna_fn__runtime__debug result: !my_result! error: !my_error!
-call :barna_fn__runtime__stack_pop my_result my_error
-call :barna_fn__runtime__debug result: !my_result! error: !my_error!
-call :barna_fn__runtime__stack_pop my_result my_error
-call :barna_fn__runtime__debug result: !my_result! error: !my_error!
+@REM call :barna_fn__runtime__stack_push Apple
+@REM call :barna_fn__runtime__stack_push Banana
+@REM call :barna_fn__runtime__stack_pop my_result my_error
+@REM call :barna_fn__runtime__debug result: !my_result! error: !my_error!
+@REM call :barna_fn__runtime__exit_on_error my_error
+@REM call :barna_fn__runtime__stack_pop my_result my_error
+@REM call :barna_fn__runtime__debug result: !my_result! error: !my_error!
+@REM call :barna_fn__runtime__exit_on_error my_error
+@REM call :barna_fn__runtime__stack_pop my_result my_error
+@REM call :barna_fn__runtime__debug result: !my_result! error: !my_error!
+@REM call :barna_fn__runtime__exit_on_error my_error
+call :barna_fn__runtime__stack_push 1.1
+call :barna_fn__runtime__stack_push 2.2
+call :barna_fn__runtime__stack_pop register1 my_error
+call :barna_fn__runtime__exit_on_error my_error
+call :barna_fn__runtime__stack_pop register0 my_error
+call :barna_fn__runtime__exit_on_error my_error
+set /a register2=register0+register1
+call :barna_fn__runtime__stack_push %register2%
+call :barna_fn__runtime__stack_print
+call :barna_fn__runtime__stack_push 3.3
+call :barna_fn__runtime__stack_pop register1 my_error
+call :barna_fn__runtime__exit_on_error my_error
+call :barna_fn__runtime__stack_pop register0 my_error
+call :barna_fn__runtime__exit_on_error my_error
+set /a register2=(register0)*(register1)
+call :barna_fn__runtime__stack_push %register2%
+call :barna_fn__runtime__stack_print
 goto :eof
 
 
@@ -124,19 +144,6 @@ goto :eof
 
 
     ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    :: Functions `heap` Begin
-    ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-
-    :: TODO: Implement the heap functions.
-
-
-    ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    :: Functions `heap` End
-    ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-
-    ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     :: Functions `runtime` Begin
     ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -188,6 +195,35 @@ goto :eof
     goto :eof
 
 
+    :barna_fn__runtime__stack_print
+    ::: Print the runtime stack to the console if the BARNA_DEBUG environment variable is set.
+    :::
+    ::: Examples
+    :::     call :barna_fn__runtime__stack_print
+    call :barna_fn__util__function_init %0 %*
+    call :barna_fn__stack__print barna_var__runtime_stack barna_var__runtime_stack_size
+    call :barna_fn__util__function_deinit
+    goto :eof
+
+
+    :barna_fn__runtime__exit_on_error
+    ::: Exit the script if the runtime error message is not empty.
+    :::
+    ::: Arguments
+    :::     args: In Arguments - Error message.
+    :::
+    ::: Examples
+    :::     call :barna_fn__runtime__exit_on_error barna_var__error
+    call :barna_fn__util__function_init %0 %*
+    if defined %~1 (
+        call :barna_fn__runtime__debug %~1
+        call :barna_fn__util__function_deinit
+        exit /b 1
+    )
+    call :barna_fn__util__function_deinit
+    goto :eof
+
+
     ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     :: Functions `runtime` End
     ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -209,7 +245,6 @@ goto :eof
     ::: Examples
     :::     call :barna_fn__util__function_init %0 %*
     call :barna_fn__runtime__debug %* called
-    set barna_var__runtime_error=
     goto :eof
 
 
