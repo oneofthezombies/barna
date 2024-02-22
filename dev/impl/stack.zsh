@@ -5,7 +5,7 @@
 # $2 - stack_size: int reference
 # $3 - item: string value
 stack_push() {
-    eval "$2=$(($2+1))"
+    eval "$2=\$((\$$2+1))"
     eval "$1[\$$2]='$3'"
     return 0
 }
