@@ -20,6 +20,7 @@ stack_pop() {
     fi
     eval "$3=\${$1[\$$2]}"
     eval "$2=\$((\$$2-1))"
+    return 0
 }
 
 test() {
