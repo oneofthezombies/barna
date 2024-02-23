@@ -24,7 +24,9 @@ Pwsh >= 5
             libssl-dev \
             libsqlite3-dev \
             tk-dev \
-            liblzma-dev
+            liblzma-dev \
+            build-essential \
+            gdb
     ```
 
 2. Install pyenv
