@@ -6,7 +6,8 @@ function stack_push {
     )
     if ($stack_size.Value -lt $stack.Value.Count) {
         $stack.Value[$stack_size.Value] = $item
-    } else {
+    }
+    else {
         $stack.Value.Add($item)
     }
     $stack_size.Value++

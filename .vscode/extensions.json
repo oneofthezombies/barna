@@ -1,3 +1,10 @@
 {
-  "recommendations": ["ms-vscode.powershell"]
+  "recommendations": [
+    "ms-vscode.powershell",
+    "ms-python.python",
+    "ms-python.debugpy",
+    "ms-python.black-formatter",
+    "esbenp.prettier-vscode",
+    "mkhl.shfmt"
+  ]
 }
