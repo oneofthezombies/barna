@@ -7,7 +7,7 @@
 stack_push() {
     local -n stack=$1
     local -n stack_size=$2
-    ((stack_size+=1))
+    ((stack_size += 1))
     stack[stack_size]=$3
     return 0
 }
@@ -23,7 +23,7 @@ stack_pop() {
         return 1
     fi
     eval $3="${stack[stack_size]}"
-    ((stack_size-=1))
+    ((stack_size -= 1))
     return 0
 }
 
