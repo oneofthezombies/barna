@@ -15,7 +15,7 @@ stack_push() {
 # $2 - stack_size: int reference
 # $3 - item: string reference
 stack_pop() {
-    if [ ${(P)2} -eq 0 ]; then
+    if [ $(eval echo \$$2) -eq 0 ]; then
         return 1
     fi
     eval "$3=\${$1[\$$2]}"
