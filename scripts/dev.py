@@ -33,6 +33,7 @@ def init(force=False):
             clean()
         else:
             print("Development environment already initialized")
+            return
 
     os.makedirs(THIRD_PARTY_DIR, exist_ok=True)
     with push_dir(THIRD_PARTY_DIR):
