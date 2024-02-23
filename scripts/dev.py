@@ -16,7 +16,7 @@ def push_dir(target_dir):
 
 
 THIRD_PARTY_DIR = "third_party"
-CPYTHON_TAG = "v3.12.2"
+CPYTHON_BRANCH = "target"
 
 
 def clean():
@@ -42,14 +42,11 @@ def init(force=False):
                 "git",
                 "clone",
                 "--depth=1",
+                f"--branch={CPYTHON_BRANCH}",
                 "https://github.com/oneofthezombies/cpython.git",
             ]
         )
         with push_dir("cpython"):
-            subprocess.check_call(
-                ["git", "fetch", "--depth=1", "origin", "tag", CPYTHON_TAG]
-            )
-            subprocess.check_call(["git", "checkout", CPYTHON_TAG])
             os.makedirs("debug", exist_ok=True)
             with push_dir("debug"):
                 subprocess.check_call(["../configure", "--with-pydebug"])

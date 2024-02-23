@@ -5,6 +5,7 @@
     "ms-python.debugpy",
     "ms-python.black-formatter",
     "esbenp.prettier-vscode",
-    "mkhl.shfmt"
+    "mkhl.shfmt",
+    "ms-vscode.cpptools-extension-pack"
   ]
 }
