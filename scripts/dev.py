@@ -42,7 +42,7 @@ def init(force=False):
                 "git",
                 "clone",
                 "--depth=1",
-                "https://github.com/python/cpython.git",
+                "https://github.com/oneofthezombies/cpython.git",
             ]
         )
         with push_dir("cpython"):
